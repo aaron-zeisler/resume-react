@@ -1,52 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import {
-  AccountMultipleIcon,
-  AirplaneTakeoffIcon,
-  SourceMergeIcon,
-  CameraIcon,
-  CardsIcon,
-  CloudBracesIcon,
-  CodeBracesIcon,
-  ConsoleLineIcon,
-  CubeUnfoldedIcon,
-  DatabaseIcon,
-  Dice5Icon,
-  EmailIcon,
-  EmoticonIcon,
-  InsertEmoticonIcon,
-  FilePdfIcon,
-  GithubCircleIcon,
-  GoogleCirclesExtendedIcon,
-  GuitarElectricIcon,
-  HeadphonesIcon,
-  HexagonMultipleIcon,
-  HomeHeartIcon,
-  HopsIcon,
-  HumanHandsupIcon,
-  LanguageCsharpIcon,
-  LanguageCss3Icon,
-  LanguageGoIcon,
-  LanguageJavascriptIcon,
-  LanguagePythonIcon,
-  LightbulbOnIcon,
-  LinkedinBoxIcon,
-  MicrosoftIcon,
-  NpmIcon,
-  PackageVariantIcon,
-  BoatIcon,
-  PhoneIcon,
-  ShipIcon,
-  ShipWheelIcon,
-  SailingIcon,
-  SourceBranchIcon,
-  SchoolIcon,
-  TruckFastIcon,
-  TruckDeliveryIcon,
-  TwitterIcon,
-  WebIcon,
-  WebpackIcon,
-} from 'mdi-react';
+import { PiBracketsCurly, PiCirclesThree } from 'react-icons/pi';
+import { FaDatabase, FaCloud, FaGraduationCap, FaChessBoard, FaHeadphones, FaEnvelope, FaFilePdf, FaLinkedin, FaGithub } from 'react-icons/fa6';
+import { GrServices } from 'react-icons/gr';
+import { AiOutlineGlobal } from 'react-icons/ai';
+import { TbAutomation, TbCircuitBattery } from 'react-icons/tb';
+import { GoGitBranch } from 'react-icons/go';
+import { HiLightBulb } from 'react-icons/hi';
+import { GiGuitarBassHead, GiHops } from 'react-icons/gi';
 import data from './resume-data.js';
 import Job from './Job';
 import {
@@ -73,17 +34,12 @@ const Mobile = props => <Responsive {...props} maxWidth={899} />;
 
 const Github = () => (
   <a href="http://www.github.com/aaron-zeisler">
-    <GithubCircleIcon />
+    <FaGithub />
   </a>
 );
 const LinkedIn = () => (
   <a href="https://www.linkedin.com/in/aaron-zeisler/">
-    <LinkedinBoxIcon />
-  </a>
-);
-const Twitter = () => (
-  <a href="https://www.twitter.com/fhwrdh/">
-    <TwitterIcon />
+    <FaLinkedin />
   </a>
 );
 
@@ -108,16 +64,16 @@ const ContactSection = () => (
   <Section>
     <SectionTitle>Contact</SectionTitle>
     <Description tight>
-      <Bullet icon={EmailIcon}>
+      <Bullet icon={FaEnvelope}>
         <a href="mailto:aaron.zeisler@gmail.com">aaron.zeisler@gmail.com</a>
       </Bullet>
       <Screen>
-        <Bullet icon={FilePdfIcon}>
+        <Bullet icon={FaFilePdf}>
           <a href="/aaron.zeisler.pdf">aaron.zeisler.pdf</a>
         </Bullet>
       </Screen>
       <Print>
-        <Bullet icon={LinkedinBoxIcon}>
+        <Bullet icon={FaLinkedin}>
           <a href="https://www.linkedin.com/in/aaron-zeisler">linkedin.com/in/aaron-zeisler</a>
         </Bullet>
       </Print>
@@ -129,18 +85,14 @@ const SkillsSection = () => (
   <Section>
     <SectionTitle>Skills</SectionTitle>
     <Description tight>
-      <Bullet icon={GoogleCirclesExtendedIcon}>Distributed Systems</Bullet>
-      <Bullet icon={CodeBracesIcon}>Golang, Python</Bullet>
-      <Bullet icon={DatabaseIcon}>MySQL, DynamoDB, Redis</Bullet>
-      <Bullet icon={CloudBracesIcon}>EC2, S3, SNS, SQS, SES</Bullet>
-      <Bullet icon={HexagonMultipleIcon}>Kafka, SNS, RabbitMQ</Bullet>
-      <Bullet icon={LanguageJavascriptIcon}>Javascript, React, Angular</Bullet>
-      <Bullet icon={MicrosoftIcon}>ASP.NET, C#</Bullet>
-      <Bullet icon={ConsoleLineIcon}>Linux, Docker</Bullet>
-      <Bullet icon={SourceBranchIcon}>GitHub, Bitbucket, Mercurial</Bullet>
-      <Bullet icon={TruckDeliveryIcon}>Continuous Integration</Bullet>
-      <Bullet icon={LightbulbOnIcon}>Pair Programming, TDD</Bullet>
-      <Bullet icon={CubeUnfoldedIcon}>Agile, Kanban, Scrum</Bullet>
+      <Bullet icon={PiBracketsCurly}>Go, Python, Java</Bullet>
+      <Bullet icon={PiCirclesThree}>Distributed Systems</Bullet>
+      <Bullet icon={FaDatabase}>DynamoDB, MySQL, Redis</Bullet>
+      <Bullet icon={GrServices}>Kafka, SNS/SQS</Bullet>
+      <Bullet icon={FaCloud}>AWS, Docker, Linux</Bullet>
+      <Bullet icon={AiOutlineGlobal}>REST, gRPC, GraphQL</Bullet>
+      <Bullet icon={TbAutomation}>Temporal, OpenTelemetry</Bullet>
+      <Bullet icon={GoGitBranch}>TDD, Agile/Kanban, Git</Bullet>
     </Description>
   </Section>
 );
@@ -149,8 +101,17 @@ const EducationSection = () => (
   <Section>
     <SectionTitle>Education</SectionTitle>
     <Description tight>
-      <Bullet icon={SchoolIcon}>Bowling Green State Univ.</Bullet>
-      <Bullet tight>BS, Computer Science</Bullet>
+      <Bullet icon={FaGraduationCap}>Bowling Green State Univ.</Bullet>
+      <Bullet>BS, Computer Science</Bullet>
+    </Description>
+  </Section>
+);
+
+const PatentsSection = () => (
+  <Section>
+    <SectionTitle>Patents</SectionTitle>
+    <Description tight>
+      <Bullet icon={HiLightBulb}>2 US Patents (Samsara)</Bullet>
     </Description>
   </Section>
 );
@@ -159,11 +120,11 @@ const InterestsSection = () => (
   <Section>
     <SectionTitle>Interests</SectionTitle>
     <Description tight>
-      <Bullet icon={GuitarElectricIcon}>Guitar</Bullet>
-      <Bullet icon={Dice5Icon}>Board Games</Bullet>
-      <Bullet icon={HopsIcon}>Brewing</Bullet>
-      <Bullet icon={HeadphonesIcon}>Music</Bullet>
-      <Bullet icon={HomeHeartIcon}>Dad Stuff</Bullet>
+      <Bullet icon={GiGuitarBassHead}>Guitar</Bullet>
+      <Bullet icon={TbCircuitBattery}>Analog Circuits</Bullet>
+      <Bullet icon={FaChessBoard}>Board Games</Bullet>
+      <Bullet icon={GiHops}>Brewing</Bullet>
+      <Bullet icon={FaHeadphones}>Music</Bullet>
     </Description>
   </Section>
 );
@@ -173,10 +134,7 @@ const AboutMeSection = () => (
     <SectionTitle top>About Me</SectionTitle>
     <Summary>
       <Point>
-        A software engineer with more than fifteen years of experience.  In my career I have worked in the healthcare, education, gaming, fashion, physical operations, and financial services industries.  I specialize in building data-intensive applications and services that are scalable, testable, and maintainable.
-      </Point>
-      <Point>
-        I'm looking for a position where I'm constantly being challenged and trying new things.  I'd love to be at a company that has a strong culture of technical innovation, learning, and teaching.  I'm currently excited about distributed systems at scale, and using AI tools to enhance software development.  I find a zen-like peace in code refactoring.
+        Backend engineer who builds the foundational services and developer tools that product teams depend on. Experienced leading platform initiatives at scale — from internal Go microservices serving 50,000+ requests per second to open-source SDKs used by developers across a dozen languages and environments. Strong background in distributed systems and high-throughput data pipelines.
       </Point>
     </Summary>
     <div style={{borderBottom: '1px solid #ccc'}} />
@@ -220,6 +178,7 @@ const DesktopLayout = () => (
       <ContactSection />
       <SkillsSection />
       <EducationSection />
+      <PatentsSection />
       <InterestsSection />
     </Left>
     <Right>
@@ -242,6 +201,7 @@ const MobileLayout = () => (
     <WithBackground>
       <SkillsSection />
       <EducationSection />
+      <PatentsSection />
       <InterestsSection />
     </WithBackground>
   </MobileContainer>

@@ -1,6 +1,6 @@
 import React, {Fragment} from 'react';
 import styled, {css} from 'styled-components';
-import {ChevronRightIcon} from 'mdi-react';
+import { FaChevronRight } from 'react-icons/fa6';
 
 export const textShadowOnDark = css`
   text-shadow: 1px 1px #333;
@@ -96,7 +96,7 @@ export const makeBullet = icon => styled(icon)`
 `;
 
 export const Bullet = ({icon, children}) => {
-  const FinalIcon = makeBullet(icon || ChevronRightIcon);
+  const FinalIcon = makeBullet(icon || FaChevronRight);
   return (
     <BulletLi>
       <BulletContent>
@@ -173,10 +173,19 @@ const Project = styled.li`
   margin-top: 0.3em;
 `;
 
-export const Point = ({role, project, children}) => (
-  <Fragment>
-    {role && <Role>{role}</Role>}
-    {project && <Project>{project}</Project>}
-    <PointText>{children}</PointText>
-  </Fragment>
-);
+const BreakBefore = styled.div`
+  @media print {
+    page-break-before: always;
+  }
+`;
+
+export const Point = ({role, project, breakBefore, children}) => {
+  const content = (
+    <Fragment>
+      {role && <Role>{role}</Role>}
+      {project && <Project>{project}</Project>}
+      <PointText>{children}</PointText>
+    </Fragment>
+  );
+  return breakBefore ? <BreakBefore>{content}</BreakBefore> : content;
+};
