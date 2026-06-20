@@ -1,13 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { PiBracketsCurly, PiCirclesThree } from 'react-icons/pi';
-import { FaDatabase, FaCloud, FaGraduationCap, FaChessBoard, FaHeadphones, FaEnvelope, FaFilePdf, FaLinkedin, FaGithub } from 'react-icons/fa6';
-import { GrServices } from 'react-icons/gr';
-import { AiOutlineGlobal } from 'react-icons/ai';
-import { TbAutomation, TbCircuitBattery } from 'react-icons/tb';
-import { GoGitBranch } from 'react-icons/go';
-import { HiLightBulb } from 'react-icons/hi';
-import { GiGuitarBassHead, GiHops } from 'react-icons/gi';
+import { FaEnvelope, FaFilePdf } from 'react-icons/fa6';
 import data from './resume-data.js';
 import Job from './Job';
 import {
@@ -18,7 +11,7 @@ import {
   Icons,
   Left,
   Name,
-  Point,
+  PointText,
   Right,
   Section,
   SectionTitle,
@@ -32,67 +25,58 @@ const Print = props => <Responsive {...props} print={true} />;
 const Desktop = props => <Responsive {...props} minWidth={900} />;
 const Mobile = props => <Responsive {...props} maxWidth={899} />;
 
-const Github = () => (
-  <a href="http://www.github.com/aaron-zeisler">
-    <FaGithub />
-  </a>
-);
-const LinkedIn = () => (
-  <a href="https://www.linkedin.com/in/aaron-zeisler/">
-    <FaLinkedin />
-  </a>
+const IconLink = ({ href, icon: Icon }) => (
+  <a href={href}><Icon /></a>
 );
 
 const Head = () => (
   <Header>
     <Desktop>
-      <Name>Aaron Zeisler</Name>
+      <Name>{data.name}</Name>
     </Desktop>
     <Mobile>
-      <Name>Aaron Zeisler</Name>
+      <Name>{data.name}</Name>
     </Mobile>
     <Screen>
       <Icons>
-        <Github />
-        <LinkedIn />
+        <IconLink href={data.contact.github.url} icon={data.contact.github.icon} />
+        <IconLink href={data.contact.linkedin.url} icon={data.contact.linkedin.icon} />
       </Icons>
     </Screen>
   </Header>
 );
 
-const ContactSection = () => (
-  <Section>
-    <SectionTitle>Contact</SectionTitle>
-    <Description tight>
-      <Bullet icon={FaEnvelope}>
-        <a href="mailto:aaron.zeisler@gmail.com">aaron.zeisler@gmail.com</a>
-      </Bullet>
-      <Screen>
-        <Bullet icon={FaFilePdf}>
-          <a href="/aaron.zeisler.pdf">aaron.zeisler.pdf</a>
+const ContactSection = () => {
+  const LinkedinIcon = data.contact.linkedin.icon;
+  return (
+    <Section>
+      <SectionTitle>Contact</SectionTitle>
+      <Description tight>
+        <Bullet icon={FaEnvelope}>
+          <a href={`mailto:${data.contact.email}`}>{data.contact.email}</a>
         </Bullet>
-      </Screen>
-      <Print>
-        <Bullet icon={FaLinkedin}>
-          <a href="https://www.linkedin.com/in/aaron-zeisler">linkedin.com/in/aaron-zeisler</a>
-        </Bullet>
-      </Print>
-    </Description>
-  </Section>
-);
+        <Screen>
+          <Bullet icon={FaFilePdf}>
+            <a href={data.contact.pdf.url}>{data.contact.pdf.label}</a>
+          </Bullet>
+        </Screen>
+        <Print>
+          <Bullet icon={LinkedinIcon}>
+            <a href={data.contact.linkedin.url}>{data.contact.linkedin.displayText}</a>
+          </Bullet>
+        </Print>
+      </Description>
+    </Section>
+  );
+};
 
 const SkillsSection = () => (
   <Section>
     <SectionTitle>Skills</SectionTitle>
     <Description tight>
-      <Bullet icon={PiBracketsCurly}>Go, Python, Java</Bullet>
-      <Bullet icon={PiCirclesThree}>Distributed Systems</Bullet>
-      <Bullet icon={FaDatabase}>DynamoDB, MySQL, Redis</Bullet>
-      <Bullet icon={GrServices}>Kafka, SNS/SQS</Bullet>
-      <Bullet icon={FaCloud}>AWS, Docker, Linux</Bullet>
-      <Bullet icon={AiOutlineGlobal}>REST, gRPC, GraphQL</Bullet>
-      <Bullet icon={TbAutomation}>Temporal, OpenTelemetry</Bullet>
-      <Bullet icon={GoGitBranch}>TDD, Agile/Kanban, Git</Bullet>
+      {data.skills.map((skill, idx) => (
+        <Bullet key={idx} icon={skill.icon}>{skill.text}</Bullet>
+      ))}
     </Description>
   </Section>
 );
@@ -101,41 +85,46 @@ const EducationSection = () => (
   <Section>
     <SectionTitle>Education</SectionTitle>
     <Description tight>
-      <Bullet icon={FaGraduationCap}>Bowling Green State Univ.</Bullet>
-      <Bullet>BS, Computer Science</Bullet>
+      {data.education.map((item, idx) => (
+        <Bullet key={idx} icon={item.icon}>{item.text}</Bullet>
+      ))}
     </Description>
   </Section>
 );
 
-const PatentsSection = () => (
-  <Section>
-    <SectionTitle>Patents</SectionTitle>
-    <Description tight>
-      <Bullet icon={HiLightBulb}>2 US Patents (Samsara)</Bullet>
-    </Description>
-  </Section>
-);
+const PatentsSection = () => {
+  if (!data.patents?.length) return null;
+  return (
+    <Section>
+      <SectionTitle>Patents</SectionTitle>
+      <Description tight>
+        {data.patents.map((item, idx) => (
+          <Bullet key={idx} icon={item.icon}>{item.text}</Bullet>
+        ))}
+      </Description>
+    </Section>
+  );
+};
 
-const InterestsSection = () => (
-  <Section>
-    <SectionTitle>Interests</SectionTitle>
-    <Description tight>
-      <Bullet icon={GiGuitarBassHead}>Guitar</Bullet>
-      <Bullet icon={TbCircuitBattery}>Analog Circuits</Bullet>
-      <Bullet icon={FaChessBoard}>Board Games</Bullet>
-      <Bullet icon={GiHops}>Brewing</Bullet>
-      <Bullet icon={FaHeadphones}>Music</Bullet>
-    </Description>
-  </Section>
-);
+const InterestsSection = () => {
+  if (!data.interests?.length) return null;
+  return (
+    <Section>
+      <SectionTitle>Interests</SectionTitle>
+      <Description tight>
+        {data.interests.map((item, idx) => (
+          <Bullet key={idx} icon={item.icon}>{item.text}</Bullet>
+        ))}
+      </Description>
+    </Section>
+  );
+};
 
 const AboutMeSection = () => (
   <Section>
     <SectionTitle top>About Me</SectionTitle>
     <Summary>
-      <Point>
-        Backend engineer who builds the foundational services and developer tools that product teams depend on. Experienced leading platform initiatives at scale — from internal Go microservices serving 50,000+ requests per second to open-source SDKs used by developers across a dozen languages and environments. Strong background in distributed systems and high-throughput data pipelines.
-      </Point>
+      <PointText>{data.summary}</PointText>
     </Summary>
     <div style={{borderBottom: '1px solid #ccc'}} />
   </Section>

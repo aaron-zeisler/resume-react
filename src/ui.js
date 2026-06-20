@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import styled, {css} from 'styled-components';
 import { FaChevronRight } from 'react-icons/fa6';
 
@@ -121,9 +121,6 @@ export const Company = styled.div`
     border-bottom: ${border};
   }
   margin-top: 1em;
-  @media print {
-    ${({breakAfter}) => breakAfter && 'page-break-after: always;'};
-  }
 `;
 
 export const TitleLine = styled.div`
@@ -161,31 +158,20 @@ export const PointText = styled.li`
   }
 `;
 
-const Role = styled.li`
+export const Role = styled.li`
   font-size: 1.2em;
   font-weight: 600;
   font-variant: all-small-caps;
 `;
 
-const Project = styled.li`
+export const Project = styled.li`
   font-size: 0.9em;
   font-style: italic;
   margin-top: 0.3em;
 `;
 
-const BreakBefore = styled.div`
+export const BreakBefore = styled.div`
   @media print {
     page-break-before: always;
   }
 `;
-
-export const Point = ({role, project, breakBefore, children}) => {
-  const content = (
-    <Fragment>
-      {role && <Role>{role}</Role>}
-      {project && <Project>{project}</Project>}
-      <PointText>{children}</PointText>
-    </Fragment>
-  );
-  return breakBefore ? <BreakBefore>{content}</BreakBefore> : content;
-};
