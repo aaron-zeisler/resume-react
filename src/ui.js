@@ -116,11 +116,18 @@ export const Icons = styled.div`
 
 // ====================================================
 //
+const breakBeforeStyle = css`
+  @media print {
+    page-break-before: always;
+  }
+`;
+
 export const Company = styled.div`
   &:not(:last-child) {
     border-bottom: ${border};
   }
   margin-top: 1em;
+  ${({breakBefore}) => breakBefore && breakBeforeStyle}
 `;
 
 export const TitleLine = styled.div`
@@ -162,16 +169,12 @@ export const Role = styled.li`
   font-size: 1.2em;
   font-weight: 600;
   font-variant: all-small-caps;
+  ${({breakBefore}) => breakBefore && breakBeforeStyle}
 `;
 
 export const Project = styled.li`
   font-size: 0.9em;
   font-style: italic;
   margin-top: 0.3em;
-`;
-
-export const BreakBefore = styled.div`
-  @media print {
-    page-break-before: always;
-  }
+  ${({breakBefore}) => breakBefore && breakBeforeStyle}
 `;
