@@ -137,9 +137,6 @@ export const TitleLine = styled.div`
   align-items: center;
   border: 0px solid black;
 `;
-export const Title = styled.h3`
-  margin: 0;
-`;
 export const CompanyName = styled.h3`
   margin: 0;
 `;
